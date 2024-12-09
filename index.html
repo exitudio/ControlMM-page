@@ -15,11 +15,6 @@
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
           <meta name="theme-color" content="#712cf9">
           <style>
-            .sup {
-              position: relative;
-              bottom: 1ex; 
-              font-size: 80%;
-            }
             .bd-placeholder-img {
               font-size: 1.125rem;
               text-anchor: middle;
@@ -210,8 +205,9 @@
             video {
               width: 100%;
               max-width: 1000px;
-              height: 450px;
-              margin: 20px auto;
+              height: auto;
+              /* height: 450px; */
+              /* margin: 20px auto; */
               display: block;
             }
 
@@ -241,9 +237,14 @@
               max-width: 1000px;
               /* Set a max-width to control video width */
             }
-            .inline-block {
-              display: inline-block;
-              text-decoration:none;
+            .album {
+              /* padding-bottom: 30px; */
+              margin-bottom: 40px;
+              /* background-color: #eee; */
+            }
+            .margin100 {
+              margin-left:100px;
+              margin-right:100px;
             }
           </style>
         </head>
@@ -297,9 +298,14 @@
                     </div>
                 </div>
               </section>
-              <section class="py-5 text-center container">
-                <h1>Abstract</h1>
-                Recent advances in motion diffusion models have enabled spatially controllable text-to-motion generation. However, despite achieving acceptable control precision, these models suffer from generation speed and fidelity limitations. To address these challenges, we propose ControlMM, a novel approach incorporating spatial control signals into the generative masked motion model. ControlMM achieves real-time, high-fidelity, and high-precision controllable motion generation simultaneously. Our approach introduces two key innovations. First, we propose masked consistency modeling, which ensures high-fidelity motion generation via random masking and reconstruction, while minimizing the inconsistency between the input control signals and the extracted control signals from the generated motion. To further enhance control precision, we introduce inference-time logit editing, which manipulates the predicted conditional motion distribution so that the generated motion, sampled from the adjusted distribution, closely adheres to the input control signals. During inference, ControlMM enables parallel and iterative decoding of multiple motion tokens, allowing for high-speed motion generation. Extensive experiments show that, compared to the state of the art, ControlMM delivers superior results in motion quality, with better FID scores (0.061 vs 0.271), and higher control precision (average error 0.0091 vs 0.0108). ControlMM generates motions 20 times faster than diffusion-based methods. Additionally, ControlMM unlocks diverse applications such as any joint any frame control, body part timeline control, and obstacle avoidance.
+              <section class="py-5 container" style="text-align:left">
+                <h1>TL;DR</h1>
+                ControlMM is the first to introduce controllability to <b>Masked Motion Model</b> through two novel components, 
+                <ol>
+                  <li>Motion Control Module (ControlNet-like) </li>
+                  <li>Logits/Codebook Editing (Can be compared to guided diffusion in diffusion models)</li>
+                </ol>
+                Moreover, ControlMM achieves SOTA in both quality and control precision, while supporting real-time generation and a wide range of applications. 
               </section>
 
               <section class="py-5 text-center container">
@@ -317,28 +323,26 @@
               <section class="py-5 text-center container">
                 <h1>Method</h1>
                 <div class="col-12">
-                        <img src="assets/inference.jpg" class="img-fluid w-100" alt="twbs">
+                        <img src="assets/architecture.png" class="img-fluid w-100" alt="twbs">
                     </div>
               </section>
 
               <section class="py-5 text-center container">
-                <div class="row py-lg-5">
                   <div class="col-lg-8 col-md-8 mx-auto">
                     <h2> Compared to SOTA - <span style='color:#f67e7e'>Multiple Joints</span>
                     </h2>
                   </div>
-                </div>
               </section>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album margin100">
                 <div class="container">
                   <div class="row">
                     <div class="col">
                       <h5>a person crosses their arms for chest fly</h5>
                     </div>
                   </div>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                  <div class="row row-cols-3">
                     <div class="col">
-                      <div class="card h-100 shadow-sm">
+                      <div class="card">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
                           <source src="./assets/sota/omni/chest_fly.mp4" type="video/mp4">
                         </video>
@@ -364,17 +368,27 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col">
+                      <div class="card h-100 shadow-sm">
+                        <video id="text-to-motion_gt" autoplay controls muted loop playsinline height="100%">
+                          <source src="./assets/sota/motionlcm/fly.mp4" type="video/mp4">
+                        </video>
+                        <div class="card-body">
+                          <p class="card-text">MotionLCM</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album margin100">
                 <div class="container">
                   <div class="row">
                     <div class="col">
                       <h5>a person jumps in the air once</h5>
                     </div>
                   </div>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                  <div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 g-3">
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
@@ -401,17 +415,27 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col">
+                      <div class="card h-100 shadow-sm">
+                        <video id="text-to-motionclm" autoplay controls muted loop playsinline height="100%">
+                          <source src="./assets/sota/motionlcm/jump.mp4" type="video/mp4">
+                        </video>
+                        <div class="card-body">
+                          <p class="card-text">MotionLCM </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album margin100">
                 <div class="container">
                   <div class="row">
                     <div class="col">
                       <h5>a person walks in a circle clockwise</h5>
                     </div>
                   </div>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                  <div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 g-3">
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
@@ -438,17 +462,27 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col">
+                      <div class="card h-100 shadow-sm">
+                        <video id="text-to-motionlcm_circle" autoplay controls muted loop playsinline height="100%">
+                          <source src="./assets/sota/motionlcm/circle.mp4" type="video/mp4">
+                        </video>
+                        <div class="card-body">
+                          <p class="card-text">MotionLCM</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album margin100">
                 <div class="container">
                   <div class="row">
                     <div class="col">
                       <h5>a person walks forward and waves his hands</h5>
                     </div>
                   </div>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                  <div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 g-3">
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
@@ -475,6 +509,16 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col">
+                      <div class="card h-100 shadow-sm">
+                        <video id="text-to-motionlcm_wave" autoplay controls muted loop playsinline height="100%">
+                          <source src="./assets/sota/motionlcm/forward_wave_hand.mp4" type="video/mp4">
+                        </video>
+                        <div class="card-body">
+                          <p class="card-text">MotionLCM</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -486,14 +530,17 @@
                   </div>
                 </div>
               </section>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album bg-body-tertiary">
                 <div class="container">
                   <div class="row">
                     <div class="col">
                       <h5>a person walks forward and waves his hands</h5>
                     </div>
+                    <div class="col">
+                      <h5>a person dances to salsa music</h5>
+                    </div>
                   </div>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                  <div class="row">
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
@@ -520,17 +567,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="album py-5 bg-body-tertiary">
-                <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <h5>a person dances to salsa music</h5>
-                    </div>
-                  </div>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
@@ -560,14 +597,15 @@
                   </div>
                 </div>
               </div>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album bg-body-tertiary">
                 <div class="container">
                   <div class="row">
                     <div class="col">
                       <h5>a person walks forward and come back to the same position from where we started</h5>
                     </div>
                   </div>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                  <div class="row">
+                    <div class="col"></div>
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
@@ -594,17 +632,17 @@
                         </div>
                       </div>
                     </div>
+
+                    <div class="col"></div>
                   </div>
                 </div>
               </div>
               <section class="py-5 text-center container">
-                <div class="row py-lg-5">
                   <div class="col-lg-8 col-md-8 mx-auto">
                     <h2> Dense Signals </h2>
                   </div>
-                </div>
               </section>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album margin100 bg-body-tertiary">
                 <div class="container">
                   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     <div class="col">
@@ -677,32 +715,6 @@
                     </div>
                     <div class="col">
                       <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_t2mgpt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/pelvis/dense/pullups.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">a person is doing pullups</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_gt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/pelvis/dense/dense1_a person is doing salsa dance.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">a person dances to salsa music</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_gt" autoplay controls muted loop playsinline height="100%">
                           <source src="./assets/wrist/dense8_a person stands and waving.mp4" type="video/mp4">
                         </video>
@@ -711,30 +723,6 @@
                           <div class="d-flex justify-content-between align-items-center">
                             <small class="text-body-secondary"></small>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_t2mgpt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/pelvis/dense/squats.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">person is doing squats</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/head/dense1_a person stands and bows.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">a person stands and bows</p>
-                          <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
                         </div>
                       </div>
                     </div>
@@ -754,46 +742,11 @@
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/pelvis/multijoints/multi1_person is walking as if injured.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">person is walking as if injured</p>
-                          <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/wrist/wrist1.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">a person walks through queue</p>
-                          <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
                           <source src="./assets/wrist/dense7_a person walks with support_.mp4" type="video/mp4">
                         </video>
                         <div class="card-body">
                           <p class="card-text">a person walks with support</p>
                           <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_t2mgpt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/pelvis/dense/oval.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">the person walks in a oval anticlockwise while waving hands</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -808,46 +761,18 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_t2mgpt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/pelvis/dense/The man walks in circle path.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">a person walks in a circle</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
 
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_t2mgpt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/wrist/dense9_a person walks forward carrying something.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">a person walks forward carrying something</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
                   </div>
                 </div>
               </div>
               <section class="py-5 text-center container">
-                <div class="row py-lg-5">
                   <div class="col-lg-8 col-md-8 mx-auto">
                     <h2> Sparse Signals </h2>
                   </div>
-                </div>
               </section>
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album margin100 bg-body-tertiary">
                 <div class="container">
                   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     <div class="col">
@@ -891,17 +816,6 @@
                     </div>
                     <div class="col">
                       <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/sparse/sparse1_a person walks forward.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">a person walks slowly</p>
-                          <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">(correct lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_gt" autoplay controls muted loop playsinline height="100%">
                           <source src="./assets/sparse/Sparse_A person walks forward, casually greeting others with a wave or hello. - left hand.mp4" type="video/mp4">
                         </video>
@@ -916,36 +830,10 @@
                     <div class="col">
                       <div class="card h-100 shadow-sm">
                         <video id="text-to-motion_gt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/sparse/inbeetween_handjoint_A person walks forward and raises both arms high..mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">A person walks forward and raises both arms high.</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_gt" autoplay controls muted loop playsinline height="100%">
                           <source src="./assets/sparse/sparse2_a man walks left and right.mp4" type="video/mp4">
                         </video>
                         <div class="card-body">
                           <p class="card-text">a man walks left and right</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary"></small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card h-100 shadow-sm">
-                        <video id="text-to-motion_gt" autoplay controls muted loop playsinline height="100%">
-                          <source src="./assets/sparse/Sparse_A person walks forward giving a high five - right hand.mp4" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                          <p class="card-text">A person walks forward giving a high five</p>
                           <div class="d-flex justify-content-between align-items-center">
                             <small class="text-body-secondary"></small>
                           </div>
@@ -969,14 +857,12 @@
                 </div>
               </div>
               <section class="py-5 text-center container">
-                <div class="row py-lg-5">
                   <div class="col-lg-8 col-md-8 mx-auto">
                     <h2>Body Part Timeline Control</h2>
                   </div>
-                </div>
               </section>
               <!-- First Timeline and Video -->
-              <div class="album py-5 bg-body-tertiary">
+              <div class="album margin100 bg-body-tertiary">
                 <div class="container">
                   <div class="row">
                     <div class="col">
@@ -1007,7 +893,7 @@
                         </div>
                       </div>
                       <!-- Video -->
-                      <video id="video-1" controls autoplay muted loop playsinline>
+                      <video id="video-1" style="height: 350px; margin: 20px auto;" controls autoplay muted loop playsinline>
                         <source src="./assets/timeline/timeline1.mp4" type="video/mp4">
                       </video>
                       <h5> 
@@ -1055,7 +941,7 @@
                         </div>
                       </div>
                       <!-- Video -->
-                      <video id="video-2" controls autoplay muted loop playsinline>
+                      <video id="video-2"  style="height: 350px; margin: 20px auto;" controls autoplay muted loop playsinline>
                         <source src="./assets/timeline/timeline2.mp4" type="video/mp4">
                       </video>
                       <h5> Generating upper body motion from frames 0 to 120 based on the prompt: <span style='color:#2596be'>"the person is bending over forward"</span> Simultaneously, lower body motion is generated from frames 0 to 120 based on the prompt: <span style='color:#2596be'>"shake with their left leg"</span> </h5>                    
@@ -1066,17 +952,15 @@
                 </div>
               </div>
               <section class="py-5 text-center container">
-                <div class="row py-lg-5">
                   <div class="col-lg-8 col-md-8 mx-auto">
                     <h2>Obstacle Avoidance</h2>
                   </div>
-                </div>
               </section>
               <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2 justify-content-center">
                 <div class="col custom-video-container">
                   <!-- Custom container to control full width -->
                   <div class="card h-100 shadow-sm">
-                    <video id="inbtween_mmm" class="custom-video" autoplay controls muted loop playsinline>
+                    <video id="inbtween_mmm" class="custom-video"  style="height: 350px; margin: 20px auto;" autoplay controls muted loop playsinline>
                       <source src="./assets/avoid/avoid1.mp4" type="video/mp4">
                     </video>
                     <div class="card-bod">
@@ -1090,7 +974,7 @@
                 <div class="col custom-video-container">
                   <!-- Custom container to control full width -->
                   <div class="card h-100 shadow-sm">
-                    <video id="inbtween_mmm" class="custom-video" autoplay controls muted loop playsinline>
+                    <video id="inbtween_mmm" class="custom-video"  style="height: 350px; margin: 20px auto;" autoplay controls muted loop playsinline>
                       <source src="./assets/avoid/avoid2.mp4" type="video/mp4">
                     </video>
                     <div class="card-body">
