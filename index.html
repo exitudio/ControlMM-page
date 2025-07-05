@@ -8,7 +8,7 @@
           <meta name="description" content="">
           <meta name="author" content="Ekkasit Pinyoanuntapong">
           <meta name="generator" content="Hugo 0.118.2">
-          <title>ControlMM: Controllable Masked Motion Generation</title>
+          <title>Spatio-Temporal Control for Masked Motion Synthesis</title>
           <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"><link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"><link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180"><link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png"><link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png"><link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json"><link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9"><link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico"> -->
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -253,7 +253,8 @@
             <section class="py-5 text-center container">
               <div class="row py-lg-5">
                 <div class="col-lg-8 col-md-8 mx-auto">
-                  <h1>ControlMM: Controllable Masked Motion Generation</h1>
+                  <h1>Spatio-Temporal Control for Masked Motion Synthesis</h1>
+                  <h4>[Previous Name]ControlMM: Controllable Masked Motion Generation</h4>
                   <h5>
                     <a href="https://www.ekkasit.com/" class="inline-block">Ekkasit Pinyoanuntapong</a><span class=sup>1</span>, 
                     <a href="https://m-usamasaleem.github.io/" class="inline-block">Muhammad Usama Saleem</a><span class=sup>1</span>, 
@@ -294,21 +295,22 @@
                 
                 <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                     <div class="col-12">
-                        <img src="assets/landing.jpg" class="img-fluid w-100" alt="twbs">
+                        <img src="assets/landing.png" class="img-fluid w-100" alt="twbs">
                     </div>
                 </div>
               </section>
               <section class="py-5 container" style="text-align:left">
                 <h1>TL;DR</h1>
-                Masked Motion Models have shown superior quality and speed compared to Motion Diffusion Models. However, current SOTA methods for motion control primarily rely on Motion Diffusion Models. ControlMM is the first to introduce controllability to Masked Motion Models through two novel components:
+                Masked Motion Models have shown superior quality and speed compared to Motion Diffusion Models. However, current SOTA methods for motion control primarily rely on Motion Diffusion Models. MaskControl is the first to introduce controllability to Masked Motion Models through two novel components:
                 <ol>
-                  <li>Motion Control Model (ControlNet-like for Masked Model) </li>
-                  <li>Logits/Codebook Editing (Inference time guidance for Masked Model)</li>
+                  <li><b>Logits Regularizer</b> (ControlNet-like for Masked Model) </li>
+                  <li><b>Logits Optimization</b> (Inference time guidance for Masked Model)</li>
                 </ol>
-                Moreover, ControlMM achieves SOTA in both quality and control precision, while supporting real-time generation and a wide range of applications. 
+                The non-differentiable nature of the quantized model is addressed via <b>Differentiable Expectation Sampling</b>.
+                MaskControl achieves SOTA in both quality and control precision, while supporting a wide range of applications. 
               </section>
 
-              <section class="py-5 text-center container">
+              <!-- section class="py-5 text-center container">
                 <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                   <div class="col-3"></div>  
                   <div class="col-6">
@@ -317,7 +319,7 @@
                 </div>
                 <h5>
                 Comparison of FID score, spatial control error, and motion generation speed (circle size) for our accurate and fast models comparing to state-of-the-art models. The closer the point is to the origin and the smaller the circle, the better performance.</h5>
-              </section>
+              </section -->
 
 
               <section class="py-5 text-center container">
@@ -348,7 +350,7 @@
                         </video>
                         <div class="card-body  mmm-card">
                           <p class="card-text">
-                            <strong>ControlMM (our)</strong>
+                            <strong>MaskControl (our)</strong>
                             </strong>
                           </p>
                           <!-- <p class="card-text">a person walks with support</p> -->
@@ -396,7 +398,7 @@
                         </video>
                         <div class="card-body  mmm-card">
                           <p class="card-text">
-                            <strong>ControlMM (our)</strong>
+                            <strong>MaskControl (our)</strong>
                           </p>
                           <!-- <p class="card-text">a person walks with support</p> -->
                           <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
@@ -443,7 +445,7 @@
                         </video>
                         <div class="card-body  mmm-card">
                           <p class="card-text">
-                            <strong>ControlMM (our)</strong>
+                            <strong>MaskControl (our)</strong>
                           </p>
                           <!-- <p class="card-text">a person walks with support</p> -->
                           <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
@@ -490,7 +492,7 @@
                         </video>
                         <div class="card-body  mmm-card">
                           <p class="card-text">
-                            <strong>ControlMM (our)</strong>
+                            <strong>MaskControl (our)</strong>
                           </p>
                           <!-- <p class="card-text">a person walks with support</p> -->
                           <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
@@ -548,7 +550,7 @@
                         </video>
                         <div class="card-body  mmm-card">
                           <p class="card-text">
-                            <strong>ControlMM (our)</strong>
+                            <strong>MaskControl (our)</strong>
                           </p>
                           <!-- <p class="card-text">a person walks with support</p> -->
                           <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
@@ -575,7 +577,7 @@
                         </video>
                         <div class="card-body  mmm-card">
                           <p class="card-text">
-                            <strong>ControlMM (our)</strong>
+                            <strong>MaskControl (our)</strong>
                           </p>
                           <!-- <p class="card-text">a person walks with support</p> -->
                           <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
@@ -613,7 +615,7 @@
                         </video>
                         <div class="card-body  mmm-card">
                           <p class="card-text">
-                            <strong>ControlMM (our)</strong>
+                            <strong>MaskControl (our)</strong>
                           </p>
                           <!-- <p class="card-text">a person walks with support</p> -->
                           <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
@@ -637,6 +639,44 @@
                   </div>
                 </div>
               </div>
+
+              <section class="py-5 text-center container">
+                  <div class="col-lg-8 col-md-8 mx-auto">
+                    <h2> Compared to STMC for Body Part Timeline Control
+                    </h2>
+                    <img src="./assets/stmc/timeline.jpg" />
+                  </div>
+              </section>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-center">
+                <div class="card">
+                    <video id="text-to-motion_mmm" autoplay controls muted loop playsinline height="100%">
+                      <source src="./assets/stmc/ControlMM.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-body  mmm-card">
+                      <p class="card-text">
+                        <strong>MaskControl (our)</strong>
+                        </strong>
+                      </p>
+                      <!-- <p class="card-text">a person walks with support</p> -->
+                      <!-- <div class="d-flex justify-content-between align-items-center"><small class="text-body-secondary">( lunges posture and hand posture while doing lunges is more realistic than ground truth)</small></div> -->
+                    </div>
+                  </div>
+                <div class="col">
+                  <div class="card h-100 shadow-sm">
+                    <video id="text-to-motion_t2mgpt" autoplay controls muted loop playsinline height="100%">
+                      <source src="./assets/stmc/stmc.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-body">
+                      <p class="card-text">STMC</p>
+                      <div style="color:red">No "pick something", no "wipe", and walk to the wrong side</div>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-body-secondary"></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <section class="py-5 text-center container">
                   <div class="col-lg-8 col-md-8 mx-auto">
                     <h2> Dense Signals </h2>
@@ -767,6 +807,10 @@
                   </div>
                 </div>
               </div>
+
+              
+
+
               <section class="py-5 text-center container">
                   <div class="col-lg-8 col-md-8 mx-auto">
                     <h2> Sparse Signals </h2>
